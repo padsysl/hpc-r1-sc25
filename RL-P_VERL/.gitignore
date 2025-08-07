@@ -1,0 +1,7 @@
+logs/
+outputs/
+*.egg-info/
+._slurmtail
+datasets
+models
+verl

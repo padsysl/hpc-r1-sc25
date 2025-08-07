@@ -1,0 +1,4 @@
+logs/
+outputs/
+*.egg-info/
+._slurmtail
