@@ -21,3 +21,6 @@
   # Standard SLURM sbatch
   sbatch batch.sh
   ```
+
+## Note on our VERL Fork
+*Link will be added here (and to the scripts above) once we have publicly released the fork.*
