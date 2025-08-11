@@ -1,0 +1,59 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel", "ninja"]
+
+[project]
+name = "hpcr1-sft-basic"
+version = "0.0.1"
+description = "Currently only the most basic example of SFT on HPC. Our full code will be released shortly."
+readme = "README.md"
+requires-python = "==3.11.7"
+
+[dependency-groups]
+main = [
+    "accelerate>=1.4.0",
+    "datasets",
+    "deepspeed>=0.16.4",
+    "peft>=0.14.0",
+    "bitsandbytes>=0.45.2",
+    "setuptools>=75.8.0",
+    "torch==2.6.0",  # Maybe try 2.6.0 for compat
+    "torchaudio>=2.6.0",
+    "torchvision>=0.21.0",
+    "trl==0.13.0",          # 0.15.1 seems to have a bug with liger-kernel
+    "transformers>=4.49.0",
+    "numpy==2.3.2"
+]
+# monitoring = [
+#     "wandb>=0.19.7",
+#     "py-spy>=0.4.0",
+#     "nvitop>=1.4.2",
+# ]
+utils = [
+    "pandas>=2.2.3",
+    "huggingface-hub[cli]>=0.19.2,<1.0",
+]
+
+# Optional dependencies (extras_require in setup.py)
+[project.optional-dependencies]
+test = ["pytest", "yapf", "py-spy"]
+gpu = ["liger-kernel>=0.5.3", "flash-attn==2.8.2"]
+
+[tool.uv]
+default-groups = ["main", "utils"]
+compile-bytecode = true # Can help with startup times at expense of install time
+# no-build-isolation-package = ["flash-attn"]
+
+# Maximum concurrent source-distribution builds
+concurrent-builds = 8
+
+# Maximum in-flight parallel downloads (defaults to 50)
+concurrent-downloads = 50
+
+# Number of threads for installing/unzipping
+concurrent-installs = 8
+
+[tool.uv.extra-build-dependencies]
+# Will require these extra packages when building flash-attn.
+# It's important that the torch version matches the one used by this package.
+# Consider using == in both your dependencies and here for an exact match on the torch version.
+flash-attn = ["setuptools>=80.9.0", "wheel", "ninja", "torch==2.6.0", "numpy==2.3.2", "hatchling>=1.27.0"]
